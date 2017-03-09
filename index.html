@@ -3,22 +3,25 @@
     <head>
         <meta charset="utf-8">
         <title>Shopping List App</title>
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-
+        <h1>My Shopping List</h1>
         <div class="container">
-            <h1>My Shopping List</h1>
-            <input type="text" name="itemToShop" placeholder="Item to shop" id="shoppingText">
-            <button type="button" name="button" onclick="handlers.addShopping()">Add</button>
+            <div class="shoppingApp">
+                <input type="text" name="itemToShop" placeholder="Item to shop" id="shoppingText" autofocus>
+                <ul></ul>
+                <div class="">
+                    <p id="itemsLeft"></p>
+                    <button type="button" name="button" onclick="handlers.allShopping()">All</button>
+                    <button type="button" name="button" onclick="handlers.activeShopping()">Active</button>
+                    <button type="button" name="button" onclick="handlers.completedShopping()">completed</button>
+                    <button type="button" name="button" onclick="">Clear completed</button>
+                    <button type="button" name="button" onclick="handlers.toggleAll()">Toggle All</button>
+                </div>
+            </div>
         </div>
-        <ul></ul>
-        <div class="">
-            <button type="button" name="button">All</button>
-            <button type="button" name="button">Active</button>
-            <button type="button" name="button">completed</button>
-            <button type="button" name="button">Clear completed</button>
-            <button type="button" name="button">Toggle All</button>
-        </div>
+
         <script src="script.js"></script>
     </body>
 </html>
