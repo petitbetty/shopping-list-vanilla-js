@@ -15,6 +15,10 @@ var shoppingList = {
 
     },
 
+    uncheckShopping: function (position) {
+        this.shopping[position].completed = false;
+    },
+
     allCompletedShopping: function() {
         this.shoppingDone = [];
         //Try to change for with forEach loop
@@ -64,6 +68,7 @@ var shoppingList = {
 var handlers = {
     completedShopping: function () {
         shoppingList.allCompletedShopping();
+
         view.displayShopping(shoppingList.shoppingDone);
     },
 
@@ -98,13 +103,17 @@ var view = {
         var shoppingUl = document.getElementById('shoppingListUl');
         shoppingUl.textContent = '';
 
-            allList.forEach(function(itemToShop, position){
+        allList.forEach(function(itemToShop, position){
+
             var shoppingLi = document.createElement('li');
             var liDiv = document.createElement('div');
             liDiv.className = 'liDiv';
             var liInput = document.createElement('input');
             liInput.type = 'checkbox';
-            liInput.className = 'checkbox';
+            if (itemToShop.completed === true) {
+                liInput.checked = 'checked';
+            }
+            liInput.id = 'checkbox_'+ position;
             var liLabel = document.createElement('label');
             liLabel.className = 'checkbox-label';
             var liButton = document.createElement('button');
@@ -149,9 +158,16 @@ var view = {
 
         shoppingListUl.addEventListener('click', function(event){
             var eventTarget = event.target;
+
             if(eventTarget.checked === true) {
                 shoppingList.completedShopping(event.path[2].id);
                 that.showNotCompletedItems();
+                eventTarget.nextSibling.className ='label-underline';
+            } else if(eventTarget.checked === false) {
+                shoppingList.uncheckShopping(event.path[2].id);
+                that.showNotCompletedItems();
+                eventTarget.nextSibling.className ='checkbox-label';
+
             }
 
             if(eventTarget.className === 'deleteLi') {
