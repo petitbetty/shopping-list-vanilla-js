@@ -27,14 +27,24 @@ ul {
     margin: 0;
     padding: 0;
     list-style: none;
+    width: 100%
 }
 
-ul li {
+#shoppingListUl li {
     position: relative;
     font-size: 24px;
     border-bottom: 1px solid #ededed;
     padding: 15px 15px 15px 60px;
     line-height: 1.2;
+}
+#buttonsUl {
+    display: inline-flex;
+}
+
+#buttonsUl li {
+    flex: 1 1 100%;
+    text-align: center;
+    padding: 5px;
 }
 
 h1 {
@@ -78,9 +88,10 @@ h1 {
 
 button, input[type="checkbox"] {
     outline: none;
+    margin-right: 15px;
 }
 
-button , #itemsLeft {
+li button , #itemsLeft {
     margin: 0;
     padding: 0;
     border: 0;
@@ -95,9 +106,20 @@ button , #itemsLeft {
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
     font-smoothing: antialiased;
+    -webkit-transition-duration: 0.4s; /* Safari */
+   transition-duration: 0.4s;
+   cursor: pointer;
 }
 
-.delectLi {
+li button:active, li button:hover {
+    color: inherit;
+    margin: 3px;
+    padding: 3px 7px;
+    border: 1px solid #cc9a9a;
+    border-radius: 3px;
+}
+
+.deleteLi {
     float: right;
     position: absolute;
     top: 0;
@@ -110,4 +132,21 @@ button , #itemsLeft {
     color: #cc9a9a;
     margin-bottom: 11px;
     transition: color 0.2s ease-out;
+    -webkit-transition-duration: 0.4s; /* Safari */
+   transition-duration: 0.4s;
+   cursor: pointer;
+}
+
+.deleteLi:hover {
+    font-size: 32px;
+    border: none;
+    color: #cc9a9a;
+}
+
+.toggleButtonsSection {
+    display: none;
+}
+
+.DisplayButtons {
+    display: block;
 }
