@@ -135,7 +135,7 @@ li button:active, li button:hover {
    cursor: pointer;
 }
 
-.label-underline {
+.label-overline {
     text-decoration:line-through;
     color: #d9d9d9;
 }

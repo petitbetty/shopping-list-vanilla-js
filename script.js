@@ -55,11 +55,12 @@ var shoppingList = {
 
     clearAllCompleted: function () {
         var that = this;
-        this.shopping.forEach(function (itemToShop, position) {
-            if ( itemToShop.completed === true ) {
-                that.deleteShoppingItem(position);
+
+        for (var i = this.shopping.length - 1; i >= 0; i--) {
+            if (this.shopping[i].completed === true) {
+                this.deleteShoppingItem(i);
             }
-        });
+        }
     }
 };
 
@@ -68,7 +69,6 @@ var shoppingList = {
 var handlers = {
     completedShopping: function () {
         shoppingList.allCompletedShopping();
-
         view.displayShopping(shoppingList.shoppingDone);
     },
 
@@ -78,21 +78,24 @@ var handlers = {
     },
 
     allShopping: function() {
+        view.overLineLabel();
         view.displayShopping(shoppingList.shopping);
+
     },
 
     deleteShoppingItem: function () {
         shoppingList.shopping.forEach(function (itemToShop, position) {
             shoppingList.deleteShoppingItem(position);
         });
+
         view.displayShopping(shoppingList.shopping);
     },
 
     clearAllCompleted: function () {
+        //debugger;
         shoppingList.clearAllCompleted();
-        view.toggleButtons();
         view.displayShopping(shoppingList.shopping);
-
+        view.toggleButtons();
     }
 };
 
@@ -109,13 +112,16 @@ var view = {
             var liDiv = document.createElement('div');
             liDiv.className = 'liDiv';
             var liInput = document.createElement('input');
+            var liLabel = document.createElement('label');
             liInput.type = 'checkbox';
             if (itemToShop.completed === true) {
                 liInput.checked = 'checked';
+                liLabel.className ='label-overline';
+            } else {
+                liLabel.className = 'checkbox-label';
             }
             liInput.id = 'checkbox_'+ position;
-            var liLabel = document.createElement('label');
-            liLabel.className = 'checkbox-label';
+
             var liButton = document.createElement('button');
             liButton.className = 'deleteLi';
             liButton.textContent = 'X';
@@ -128,7 +134,6 @@ var view = {
             shoppingLi.className = 'shoppingListItem';
             shoppingUl.appendChild(shoppingLi);
         });
-
     },
 
     showNotCompletedItems : function () {
@@ -136,19 +141,15 @@ var view = {
         itemsLeft.textContent = shoppingList.shoppingLeftTodo() + ' items left';
     },
 
-    showCompletedItems : function () {
-        shoppingList.completedShopping
-    },
-
     toggleButtons: function () {
         var hideAndShow = document.getElementById('hideAndShow');
-        var mc = shoppingList.shoppingLeftTodo();
         if (hideAndShow.className === 'toggleButtonsSection') {
             hideAndShow.className = 'displayButtons';
         } else if (hideAndShow.className === 'displayButtons' && shoppingList.shoppingLeftTodo() === 0)  {
             hideAndShow.className = 'toggleButtonsSection';
         }
     },
+
 
     setUpEventListener: function () {
         var that = this;
@@ -162,7 +163,7 @@ var view = {
             if(eventTarget.checked === true) {
                 shoppingList.completedShopping(event.path[2].id);
                 that.showNotCompletedItems();
-                eventTarget.nextSibling.className ='label-underline';
+                eventTarget.nextSibling.className ='label-overline';
             } else if(eventTarget.checked === false) {
                 shoppingList.uncheckShopping(event.path[2].id);
                 that.showNotCompletedItems();
